@@ -1,0 +1,128 @@
+/*  import google fonts */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+*
+{
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body
+{
+    background: #fff;
+    display: flex;
+}
+/****main body section****/
+.main--content
+{
+    position: relative;
+    background: #ede4ee;
+    width: 100%;
+    padding: 1rem;
+}
+.header--wrapper
+{
+    align-items: center;
+    flex-wrap: wrap;
+    background: #ebe9e9;
+    border-radius: 10px;
+    padding: 10px 2rem;
+    margin-bottom: 1rem;
+}
+.header--title
+{
+    color: #430947;
+    text-align: center;
+    font-size: 25px;
+}
+/**Upload container**/
+
+.upload--container
+{
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    background: #ede4ee;
+    border-radius: 10px;
+    padding: 2.5rem;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+.uploads
+{
+    position: relative;
+    background-color: #fff;
+    width: 100%;
+    padding: 2rem;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    column-gap: 14%;
+}
+.uploads h2
+{
+    font-size: 35px;
+    padding-bottom: 15px;
+    color: #430947;
+}
+.uploads p
+{
+    font-weight: 600;
+    padding-top: 15px;
+}
+.uploads table
+{
+    position: relative;
+    padding: 1rem;
+    text-align: left;
+    width: 100%;
+}
+.uploads th
+{
+    width: 40%;
+    padding: 10px;
+}
+.uploads td
+{
+    width: 50%;
+    margin: 0.5rem;
+}
+.uploads .column
+{
+    padding: 1rem;
+}
+
+/**Button**/
+.back-btn
+{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.back-btn button
+{
+    height: 55px;
+    width: 200%;
+    cursor: pointer;
+    font-size: 1rem;
+    background-color: #fff;
+    border: 1px solid #430947;
+    color: #430947;
+    border-radius: 50px;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
+}
+.back-btn button:hover
+{
+    background-color: #3f1a41;
+    border: 1px solid #3f1a41;
+    color: #fff;
+
+
+}

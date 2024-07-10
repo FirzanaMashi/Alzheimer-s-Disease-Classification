@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Patient Details | ADRad </title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/patientDetails.css') }}"/>
+        <link rel="icon" type="image/x-icon" href="">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    </head>
+    <body>
+        {% extends 'navbar.html' %}
+        <!--Main section-->
+        <div class="main--content">
+            {% block content %}
+            <div class="header--wrapper">
+                <div class="header--title">
+                    <h2>Patient Details</h2>  
+                </div>
+                
+            </div>
+            <div class="details--container">
+                <div class="table-container">
+                    <table>
+                        <tbody>
+                            {% if patientdetails %}
+                            <tr>
+                                <th>Patient Full Name</th>
+                                <td>{{ patientdetails[1] }}</td>
+                            </tr>
+                            <tr>
+                                <th>Patient IC</th>
+                                <td>{{ patientdetails[2] }}</td>
+                            </tr>
+                            <tr>
+                                <th>Patient Age</th>
+                                <td>{{ patientdetails[3] }}</td>
+                            </tr>
+                            <tr>
+                                <th>Patient Gender</th>
+                                <td>{{ patientdetails[4] }}</td>
+                            </tr>
+                            <tr>
+                                <th>Date of Birth</th>
+                                <td> {{ patientdetails[6].strftime('%d/%m/%Y') }} </td>
+                            </tr>
+                            <tr>
+                                <th>Contact No. </th>
+                                <td>{{ patientdetails[5] }}</td>
+                            </tr>
+                            <tr>
+                                <th>Guardian Full Name</th>
+                                <td>{{ patientdetails[7] }}</td>
+                            </tr>
+                            <tr>
+                                <th>Guardian Contact No. </th>
+                                <td>{{ patientdetails[8] }}</td>
+                            </tr>
+                        </tbody>
+                        {% endif %}
+                    </table>
+                </div>
+            </div>
+            <!--Table-->
+            <div class="tabular--wrapper">
+                <h3 class="main--title">Patient's MRI Record</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>MRI ID</th>
+                                <th>Patient ID</th>
+                                <th>Alzheimer's Disease Stage</th>
+                                <th>MRI Image</th>
+                                <th>Scan Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if mridata %}
+                                {% for data in mridata %}
+                                    <tr>
+                                        <td>{{ data[0] }}</td>
+                                        <td>{{ data[4] }}</td>
+                                        <td>{{ data[2] }}</td>
+                                        <td>
+                                            <a href="{{ url_for('getMRI', image_id=data[0]) }}" target="_blank">
+                                                Click to View
+                                            </a>
+                                        </td>
+                                        <td>{{ data[1].strftime('%d/%m/%Y') }}</td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="5" style="text-align: center; font-weight: bold; font-size: 15px">
+                                        No MRI data available for this patient.
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+                <form action="{{ url_for('patientList') }}" method="get">
+                    <div class="back-btn">
+                            <button type="sumbit">Back</button>
+                    </div>
+                </form>
+            </div>
+            {% endblock %}
+        </div>
+    </body>
+</html>

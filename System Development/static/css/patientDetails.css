@@ -1,0 +1,166 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+*
+{
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body
+{
+    background: #fff;
+    display: flex;
+}
+.main--content
+{
+    position: relative;
+    background:#ede4ee;
+    width: 100%;
+    padding: 1rem;
+}
+
+/**Header**/
+
+.header--wrapper
+{
+    align-items: center;
+    flex-wrap: wrap;
+    background: #ede4ee;
+    border-radius: 10px;
+    padding: 10px 2rem;
+    margin-bottom: 1rem;
+}
+.header--title
+{
+    color: #430947;
+    text-align: center;
+    font-size: 25px;
+}
+
+/**Patient Info**/
+.details--container
+{
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    background: #fff;
+    border-radius: 10px;
+    padding: 1.5rem;
+
+}
+.details--container table
+{
+    position: relative;
+    padding: 1rem;
+    text-align: left;
+    width: 100%;
+    margin: 1rem;
+
+}
+.details--container th
+{
+    width: 10%;
+    padding: 10px;
+}
+.details--container td
+{
+    width: 50%;
+    margin: 1rem;
+}
+
+/***table section***/
+.tabular--wrapper
+{
+    background: #fff;
+    margin-top: 1rem;
+    border-radius: 10px;
+    padding: 2rem;
+}
+.tabular--wrapper .pagination ul
+{
+    display: flex;
+    justify-content: space-between;
+}
+.tabular--wrapper table
+{
+    width: 100%;
+    border-collapse: collapse;  
+    border-radius: 10px;
+}
+.tabular--wrapper thead
+{
+    background: #430947;
+    color: #fff;
+}
+.tabular--wrapper th
+{
+    padding: 15px;
+    text-align: center;
+}
+.tabular--wrapper tbody
+{
+    background: #f2f2f2;
+}
+.tabular--wrapper td
+{
+    padding: 15px;
+    font-size: 15px;
+    color: #333;
+    text-align: center;
+}
+/* .tabular--wrapper td a
+{
+    display: block;
+    border: 1px solid #333;
+} */
+.tabular--wrapper tr:nth-child(even)
+{
+    background: #fff;
+}
+.table--container button
+{
+    background: #430947;
+    
+}
+
+.table--container a
+{
+    display: block;
+    cursor: pointer;
+    font-size: 1rem;
+    background-color: #430947;
+    color: #fff;
+    border-radius: 50px;
+    justify-content: center;
+    align-items: center;
+}
+/**Back button**/
+.back-btn
+{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+.back-btn button
+{
+    height: 55px;
+    width: 12%;
+    cursor: pointer;
+    font-size: 1rem;
+    background-color: #430947;
+    color: #fff;
+    border-radius: 50px;
+    justify-content: center;
+    align-items: center;
+}
+.back-btn button:hover
+{
+    background-color: #673c69;
+    border: 1px solid #673c69;
+    color: #fff;
+
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Result MRI | ADRad </title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/result.css') }}"/>
+        <link rel="icon" type="image/x-icon" href="C:\Users\fyrza\Documents\FYP\DATASET\FYP\icon.png">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+        <script>
+            var errmsg = "{{ errormessage }}";
+            if(!(errmsg==""))
+            {
+                alert(errmsg);
+            }
+        </script>
+    </head>
+    <body>
+        {% extends 'navbar.html' %}
+        <!--Main section-->
+        <div class="main--content">
+            {% block content %}
+            <div class="header--wrapper">
+                <div class="header--title">
+                    <h2>Alzheimer's Disease Stage Prediction Result</h2> 
+                </div>
+            </div>
+            <div class="upload--container">
+                <div class="uploads">
+                    <div class="column">
+                        <h2>Patient Details</h2>
+                        <table>
+                            <tbody>
+                                {% if patient %}
+                                <tr>
+                                    <th>Patient ID</th>
+                                    <td>{{ patient[0] }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Patient Full Name</th>
+                                    <td>{{ patient[1] }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Patient IC</th>
+                                    <td>{{ patient[2] }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Patient Age</th>
+                                    <td>{{ patient[3] }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Patient Gender</th>
+                                    <td>{{ patient[4] }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Date of Birth</th>
+                                    <td> {{ patient[6].strftime('%d/%m/%Y') }} </td>
+                                </tr>
+                                <tr>
+                                    <th>Alzheimer's Disease Stage </th>
+                                    <td>{{ prediction }}</td>
+                                </tr>
+                            </tbody>
+                            {% endif %}
+                        </table>
+                        <div class="back-btn">
+                            <form action="{{ url_for('patientDetails', patientid=patient[0]) }}" method="get">
+                                <button type="submit" class="button">View Details</button>
+                            </form>                            
+                        </div>  
+                    </div> 
+                    <div class="column">
+                        {% if prediction %}
+                            <img src="{{img_path}}" height="450px" width="340px">
+                        {% endif %}    
+                    </div>
+                </div>    
+            </div>  
+            {% endblock %}
+        </div>
+        
+    </body>
+</html>

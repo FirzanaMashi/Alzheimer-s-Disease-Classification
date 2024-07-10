@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}"/>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="sidebar">
+            <div class="logo"></div>
+            <ul class="menu">
+                <li>
+                    <div class="column">
+                        <img src="{{ url_for('static', filename='img/icon.png') }}" class="">
+                        <span class="nav-title">ADRad.</span>
+                    </div>
+                    
+                </li>
+                <li>
+                    <a href="{{ url_for('home') }}" >
+                        <i class="fas fa-home"></i>
+                        <span class="nav-item">Dashboard</span>
+                    </a> 
+                </li>
+                <li>
+                    <a href="{{ url_for('regPatient') }}" >
+                        <i class="far fa-address-card"></i>
+                        <span class="nav-item">Register Patient</span>
+                    </a> 
+                </li>
+                <li>
+                    <a href="{{ url_for('patientList') }}" >
+                        <i class="fas fa-clipboard-list"></i>
+                        <span class="nav-item">Patients List</span>
+                    </a> 
+                </li>
+                <li class="logout">
+                    <a href="{{ url_for('logout') }}" >
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span class="nav-item">Log Out</span>
+                    </a> 
+                </li>
+            </ul>
+        </div>
+        
+        <div class="main--content">
+            {% block content %}{% endblock %}
+        </div>
+
+        {% block scripts %}
+        <script type="text/javascript">
+            const activePage = window.location.pathname
+            const navLinks = document.querySelectorAll('body a').
+            forEach(link => {
+                if(link.href.includes('${activePage}'))
+                {
+                    link.classList.add('active');
+                }
+            })
+        </script>
+        {% endblock %}
+
+    </body>
+</html>

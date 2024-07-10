@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Patient List | ADRad </title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/patientList.css') }}"/>
+        <link rel="icon" type="image/x-icon" href="">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    </head>
+    <body>
+        {% extends 'navbar.html' %}
+        <!--Main section-->
+        <div class="main--content">
+            {% block content %}
+            <div class="header--wrapper">
+                <div class="header--title">
+                    <h2>Patient List</h2>  
+                </div>
+                <ul class="breadcrumbs">
+                    <li>
+                        <a href="{{ url_for('home') }}">Home</a>
+                    </li> &nbsp;
+                    > 
+                    <li> &nbsp;
+                        <a href="{{ url_for('patientList') }}">Patient List</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="list--container">
+                <form action="{{ url_for('patientList') }}" class="form" method="POST", id="patientForm">
+                    <div class="column">
+                        <div class="input--box">
+                            <input type="text" name="searchP" id="searchP" placeholder="Enter patient's name" value="{{ request.form.get('searchP', '') }}">
+                        </div>
+                        <button type="submit">Search</button>
+                    </div>
+                </form>
+                <div class="column">
+                    <button type="button" onclick="resetForm()">Reset Search</button>
+                </div>
+                
+            </div>
+            <div class="tabular--wrapper">
+                <h3 class="main--title">Patient's Record</h3>
+                <div class="pagination">
+                    <ul class="pagination-list">
+                        {% for num in range(1, totalpages + 1) %}
+                        <li {% if num == page %} class="active"{% endif %}>
+                            <a href="{{ url_for('patientList', page=num) }}">{{ num }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Patient ID</th>
+                                <th>Full Name</th>
+                                <th>Date of Birth</th>
+                                <th>Age</th>
+                                <th>Gender</th>
+                                <th>Guardian Full Name</th>
+                                <th>Radiologist Name</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if patientList %}
+                                {% for patient in patientList %}
+                                <tr>
+                                    <td>{{ patient[0] }}</td>
+                                    <td>{{ patient[1] }}</td>
+                                    <td>{{ patient[2].strftime('%d/%m/%Y') }} </td>
+                                    <td>{{ patient[3] }}</td>
+                                    <td>{{ patient[4] }}</td>
+                                    <td>{{ patient[5] }}</td>
+                                    <td>{{ patient[6] }}</td>
+                                    <td><a href="{{ url_for('patientDetails', patientid=patient[0]) }}" class="button"> View Details</a></td>
+                                    <td><a href="{{ url_for('upload', patientid=patient[0]) }}" class="button"> Upload MRI</a></td>
+                                </tr>
+                                {% endfor %}
+                            {%else%}
+                                <tr>
+                                    <td colspan="8" style="text-align: center; font-weight: bold; font-size: 15px">
+                                        No MRI data available for this patient.
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>  
+            {% endblock %}
+        </div>
+        {% block scripts %} 
+                <script>
+                    function resetForm() {
+                        //Reset the search input
+                        document.getElementById("searchP").value = "";
+                        //Submit the form
+                        document.getElementById("patientForm").submit();
+                    }
+                </script>
+        {% endblock %}
+    </body>
+</html>
+        

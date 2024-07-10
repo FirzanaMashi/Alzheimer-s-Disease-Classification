@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<head>
+        <meta charset="UTF-8"/>
+        <title>Sign Up | ADRad</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}"/>
+        <link rel="icon" type="image/x-icon" href="C:\Users\fyrza\Documents\FYP\DATASET\FYP\icon.png">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+        <script type="text/javascript" src="{{ url_for('static', filename='js/passhidden.js') }}"></script>
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+        <script>
+            var errmsg = "{{ errormessage }}";
+            if(!(errmsg==""))
+            {
+                alert(errmsg);
+            }
+        </script>
+    
+    </head>
+<body>
+    <div class="splitscreen">
+        <div class="left">
+            <section class="copy"> 
+                
+            </section>
+        </div>
+        <div class="right">
+            <form action="{{ url_for('signup') }}" method="POST">
+                <section class="copy"> 
+                    <h2>Sign Up</h2>
+                    <div class="login-container">
+                        <p>Kindly register your account</p>
+                        <p>Already have an account? <a href="{{ url_for('login') }}">
+                        <strong>Log In</strong></a></p>
+                    </div>
+                </section>
+                <div class="input-container name">
+                    <label for="fname">Full Name</label>
+                    <input name="fullname" type="text" placeholder="Enter full name" required>
+                </div>
+                <div class="input-container username">
+                    <label for="username">Username</label>
+                    <input name="username" type="text" placeholder="Enter username" required>
+                </div>
+                <div class="input-container email">
+                    <label for="email">Email</label>
+                    <input name="email" type="email" placeholder="Enter email" required>
+                </div>
+                <div class="input-container password">
+                    <label for="pass">Password</label>
+                    <input name="password" type="password" 
+                    placeholder="Must be at least 8 characters" required>
+                    <i class="far fa-eye-slash" id="font" onclick="togglePW()" aria-hidden="true"></i>
+                </div>
+                <div class="input-container cpassword">
+                    <label for="cpassword">Confirm Password</label>
+                    <input name="cpassword" type="password" 
+                    placeholder="Please ensure the password is match" required>
+                    <i class="far fa-eye-slash" id="font1" onclick="toggleCPW()" aria-hidden="true"></i>
+                </div>
+                <div class="input-container cta">
+                    <label for="checkbox-container">
+                        <input type="checkbox" required>
+                        <span class="checkmark"></span>
+                        Click this once you have ensure your information are correct.
+                    </label>
+                </div>
+                <button class="signup-btn" type="submit">Sign Up</button>
+            </form>   
+        </div>
+    </div>
+</body>
+</html>

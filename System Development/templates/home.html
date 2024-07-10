@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Dashboard | ADRad </title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}"/>
+        <link rel="icon" type="image/x-icon" href="C:\Users\fyrza\Documents\FYP\DATASET\FYP\icon.png">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    </head>
+    <body>
+        {% extends 'navbar.html' %}
+        
+        <!--Main section-->
+        <div class="main--content">
+            {% block content %}
+            <div class="header--wrapper">
+                <div class="header--title">
+                    <h3>Welcome {{ username }}!</h3>
+                    <span>Primary</span>
+                    <h1>Dashboard</h1>
+                    <ul class="breadcrumbs">
+                        <li>
+                            <a href="">Home</a>
+                        </li>
+                        > 
+                        <li>
+                            <a href="{{url_for('home')}}">Dashboard</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!--patient-container-->
+            <div class="patient--container">
+                <h3 class="main--title">Current Total Cases</h3>
+                <div class="patient--wrapper">
+                    <div class="patient--card">
+                        <div class="patient--header">
+                            <div class="amount">
+                                <span class="title">
+                                    Normal 
+                                </span>
+                            </div>
+                            <div class="num-patient">
+                                <span class="num">{{ normalc }}</span>
+                                <p>cases</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="patient--card">
+                        <div class="patient--header">
+                            <div class="amount">
+                                <span class="title">
+                                    Very Mild Demented
+                                </span>
+                            </div>
+                            <div class="num-patient">
+                                <span class="num"> {{ vmildc }}</span>
+                                <p>cases</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="patient--card">
+                        <div class="patient--header">
+                            <div class="amount">
+                                <span class="title">
+                                    Mild Demented
+                                </span>
+                            </div>
+                            <div class="num-patient">
+                                <span class="num">{{ mildc }}</span>
+                                <p>cases</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="patient--card">
+                        <div class="patient--header">
+                            <div class="amount">
+                                <span class="title">
+                                    Moderate Demented
+                                </span>
+                            </div>
+                            <div class="num-patient">
+                                <span class="num">{{ modc }}</span>
+                                <p>cases</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <!--Table-->
+            <div class="tabular--wrapper">
+                <h3 class="main--title">Recently Added Patient Data</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Patient ID</th>
+                                <th>Full Name</th>
+                                <th>Age</th>
+                                <th>Date of Birth</th>
+                                <th>Contact</th>
+                                <th>Radiologist Incharge</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if latestdata %}
+                                {% for patient in latestdata %}
+                                <tr>
+                                    <td> {{ patient[0] }} </td>
+                                    <td> {{ patient[1] }} </td>
+                                    <td> {{ patient[2] }} </td>
+                                    <td> {{ patient[3].strftime('%d/%m/%Y') }} </td>
+                                    <td> {{ patient[4] }} </td>
+                                    <td> {{ patient[5] }} </td>
+                                    <td><a href="{{ url_for('patientDetails', patientid=patient[0]) }}">View Details</a></td>
+                                </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="6" style="text-align: center; font-weight: bold; font-size: 15px">
+                                        No MRI data available for this patient.
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="graph--wrapper">
+                <h3 class="main--title">Bar Chart of Patient's Cases</h3>
+                <h3 class="main--title">Total Patient: {{ totpatient }}</h3>
+                
+                <div id="chartContainer" style="width: 100%; height: 300px;"></div> 
+
+                {% block scripts %}
+                <script>
+                    //Fetch data for the bar chart using Flask route
+                    fetch('/barchart')
+                        .then(response => response.json())
+                        .then(data => {
+                            // Create a CanvasJS chart using the fetched data
+                            var chart = new CanvasJS.Chart("chartContainer", {
+                                animationEnabled: true,
+                                title: {
+                                    text: "Alzheimer's Disease Stages by Gender",
+                                    fontFamily: "Poppins, sans-serif",
+                                    fontSize: 30,
+                                    fontWeight: 600
+                                },
+                                axisX: {
+                                    title: "Stages",
+                                    interval: 1,
+                                    fontFamily: "Poppins, sans-serif"
+                                },
+                                axisY: {
+                                    title: "Total Patients",
+                                    fontFamily: "Poppins, sans-serif"
+                                },
+                                toolTip: {
+                                    shared: true
+                                },
+                                legend: {
+                                    cursor: "pointer",
+                                    verticalAlign: "top",
+                                    horizontalAlign: "center",
+                                    dockInsidePlotArea: false,
+                                    itemclick: toggleDataSeries
+                                },
+                                data: [{
+                                    type: "stackedColumn",
+                                    showInLegend: true,
+                                    color: "#5F0F40",
+                                    name: "Female",
+                                    dataPoints: [
+                                        { label: "Normal", y: data.normresf },
+                                        { label: "Very Mild Demented", y: data.vmildresf },
+                                        { label: "Mild Demented", y: data.mildresf },
+                                        { label: "Moderate Demented", y: data.modresf }
+                                    ]
+                                },
+                                {
+                                    type: "stackedColumn",
+                                    showInLegend: true,
+                                    color: "#FB8B24",
+                                    name: "Male",
+                                    dataPoints: [
+                                        { label: "Normal", y: data.normresm },
+                                        { label: "Very Mild Demented", y: data.vmildresm },
+                                        { label: "Mild Demented", y: data.mildresm },
+                                        { label: "Moderate Demented", y: data.modresm }
+                                    ]
+                                }]
+                            });
+            
+                            chart.render();
+                        })
+                        .catch(error => console.error('Error fetching data:', error));
+            
+                    // Function to toggle visibility of data series when legend item is clicked
+                    function toggleDataSeries(e) {
+                        if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                            e.dataSeries.visible = false;
+                        } else {
+                            e.dataSeries.visible = true;
+                        }
+            
+                        chart.render();
+                    }
+                </script>
+                {% endblock %}
+
+            </div>
+            {% endblock %}
+            
+        </div>  
+    </body>
+</html>
