@@ -34,3 +34,5 @@ Programming language utilised:
 1. Python (including Flask Framework)
 2. HTML
 3. CSS
+4. SQL
+5. JavaScript
